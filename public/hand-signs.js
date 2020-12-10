@@ -18,8 +18,13 @@ const restartButton = document.querySelector(".restart");
 
 const startBtn = document.querySelector(".start");
 
-const shapeListTemplate = Handlebars.compile(document.querySelector(".shapeListTemplate").innerText);
+// const shapeListTemplate = Handlebars.compile(document.querySelector(".shapeListTemplate").innerText);
 
+// alert(ballWidth);
+
+// setInterval(() => {
+//     ballWidth -= 10;
+// }, 1000);
 
 startBtn.addEventListener('click', function(){
     lookingForTheFirst = -1
@@ -86,7 +91,34 @@ function shapeGame() {
 
 }
 
-const showMeTheseShapes = ["Circle", "Heart", "Triangle"]
+const showMeTheseShapes = ["Circle", "Heart", "Triangle"];
+let currentShape = ""
+
+function startShowingShapes() {
+
+    function getShape() {
+        
+        
+        const currentShapeIndex = Math.floor(Math.random() * 3);
+        currentShape = showMeTheseShapes[currentShapeIndex];
+
+        // put the shape on the screen
+        console.log(currentShape);
+        questionElem.innerHTML = "Please show me a " + showMeTheseShapes[currentShapeIndex];
+
+        // play a sound when the shape changes
+
+    }
+
+    // get the first shape to show
+    getShape();
+
+    // show a new shape after 1.5 seconds
+    setInterval(getShape, 1500)
+
+}
+
+
 let lookingForTheFirst = 0
 questionElem.innerHTML = "Please show me a " + showMeTheseShapes[lookingForTheFirst];
 
@@ -102,9 +134,9 @@ function showShapeQuestion() {
 
     lookingForTheFirst++;
     if (lookingForTheFirst < showMeTheseShapes.length) {
-        questionElem.innerHTML = "Please show me a " + currentlyLookingFor();
+        // questionElem.innerHTML = "Please show me a " + currentlyLookingFor();
     } else {
-        questionElem.innerHTML = "You know your shapes!";
+        // questionElem.innerHTML = "You know your shapes!";
 
     }
 }
@@ -115,18 +147,49 @@ async function predict() {
     // var shape = ''
     // predict can take in an image, video or canvas html element
     const prediction = await model.predict(webcam.canvas);
-    // let highestOutcome = 0;
-    // const shapeName = ""
-    for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        // if (prediction[i].probability > total) {
-        //     total = prediction[i].probability
-        //     shape = prediction[i].className
-        // }
-        // console.log(shape);
-        labelContainer.childNodes[i].innerHTML = classPrediction;
+    
+    
+
+    const predictions = prediction.map(pred => {
+        return {
+            className: pred.className,
+            probability : Number(pred.probability.toFixed(2))
+        }
+    });
+
+    // console.log(predictions)
+
+
+    let highestOutcome = 0;
+    let shapeName = "";
+
+    for (let i = 0; i < predictions.length; i++) {
+        const currentPrediction = predictions[i];
+
+        if (currentPrediction.probability > highestOutcome){
+            highestOutcome = currentPrediction.probability;
+            shapeName = currentPrediction.className
+        }
+
     }
+
+    labelContainer.innerHTML = shapeName + " " + highestOutcome;
+
+    if (highestOutcome > 0.95) {
+
+        if (shapeName === "Start" && !ballActive) {
+            startBall();
+            startShowingShapes();
+        } else {
+            if (shapeName === currentShape){
+                // play a sound if the shape grows
+                ballWidth += 15;
+            
+            }
+        }
+    }
+    
+
 //     prediction.forEach(function (guess) {
 //         if (guess.probability > highestOutcome) {
 //             highestOutcome = guess.probability;
@@ -137,6 +200,7 @@ async function predict() {
 //     if (highestOutcome > 0.95) {
 //         return;
 //     }
+
 }
     
 // }

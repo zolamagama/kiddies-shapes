@@ -67,6 +67,7 @@ async function predict() {
     // var shape = ''
     // predict can take in an image, video or canvas html element
     const prediction = await model.predict(webcam.canvas);
+    
     let highestOutcome = 0;
     let shapeName = "";
 
