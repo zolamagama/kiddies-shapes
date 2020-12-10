@@ -115,22 +115,33 @@ async function predict() {
     // var shape = ''
     // predict can take in an image, video or canvas html element
     const prediction = await model.predict(webcam.canvas);
-    let highestOutcome = 0;
-    let shapeName = ""
-
-    prediction.forEach(function (guess) {
-        if (guess.probability > highestOutcome) {
-            highestOutcome = guess.probability;
-            shapeName = guess.className;
-        }
-    });
-
-    if (highestOutcome > 0.95) {
-        return;
+    // let highestOutcome = 0;
+    // const shapeName = ""
+    for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction =
+        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+        // if (prediction[i].probability > total) {
+        //     total = prediction[i].probability
+        //     shape = prediction[i].className
+        // }
+        // console.log(shape);
+        labelContainer.childNodes[i].innerHTML = classPrediction;
     }
-}
+//     prediction.forEach(function (guess) {
+//         if (guess.probability > highestOutcome) {
+//             highestOutcome = guess.probability;
+//             shapeName = guess.className;
+//         }
+//     });
 
-function checkForChocolate(shapeName) {
+//     if (highestOutcome > 0.95) {
+//         return;
+//     }
+}
+    
+// }
+
+function checkForShape(shapeName) {
 
     if (shapeName !== "Start") {
         const lookingFor = currentlyLookingFor();

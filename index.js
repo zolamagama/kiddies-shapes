@@ -53,7 +53,9 @@ app.post('/', async function (req, res) {
 
     await kiddies.insert(player)
 
-    res.render('index')
+    res.render('bouncing', {
+        player
+    })
 });
 
 app.get("/add", async function (req, res) {
