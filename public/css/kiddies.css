@@ -65,13 +65,13 @@
     font-size: 20px;
     }
   
-    /* h1{
+    h1{
       color: red;
-     font-family: cursive;
+     font-family: "Lucida Console", 'Courier New', Courier, monospace;
      position: absolute;
      top: 4%;
      left: 50%;
      transform: translate(-50%, -50%);
-   } */
+   }
   
   

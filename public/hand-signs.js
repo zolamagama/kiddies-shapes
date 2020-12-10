@@ -114,7 +114,7 @@ function startShowingShapes() {
     getShape();
 
     // show a new shape after 1.5 seconds
-    setInterval(getShape, 1500)
+    setInterval(getShape, 3000)
 
 }
 
@@ -183,7 +183,7 @@ async function predict() {
         } else {
             if (shapeName === currentShape){
                 // play a sound if the shape grows
-                ballWidth += 15;
+                ballWidth += 5;
             
             }
         }
