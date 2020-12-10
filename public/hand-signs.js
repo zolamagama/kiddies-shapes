@@ -12,6 +12,8 @@ const shapeNameElem = document.querySelector(".shapeName");
 const shapesElem = document.querySelector(".shapes");
 const questionElem = document.querySelector(".question");
 
+const gameOverElem = document.querySelector(".gameover")
+
 
 const debugElem = document.querySelector(".debugMessage");
 const restartButton = document.querySelector(".restart");
@@ -61,6 +63,7 @@ async function init() {
     webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
     await webcam.play();
+    
     window.requestAnimationFrame(loop);
 
     // append elements to the DOM
@@ -92,6 +95,9 @@ function shapeGame() {
 }
 
 const showMeTheseShapes = ["Circle", "Heart", "Triangle"];
+const pump = new Audio('audio/Game over.mp3')
+const gameOver = new Audio('audio/Funxa.mp3');
+// const error = new Audio('audio/error.mp3');
 let currentShape = ""
 
 function startShowingShapes() {
@@ -182,8 +188,19 @@ async function predict() {
             startShowingShapes();
         } else {
             if (shapeName === currentShape){
+                gameOver.play()
                 // play a sound if the shape grows
-                ballWidth += 5;
+                if (ballWidth <= 100) {
+                    ballWidth += 5;
+                }
+
+                // if (sound > 100) {
+                //     // pop sound
+
+                //     ballWidth = 0;    
+                // }
+
+                
             
             }
         }

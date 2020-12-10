@@ -9,7 +9,7 @@ var ballWidth = 100;
 var ballActive = false;
 
 setInterval(() => {
-    ballWidth -= 10;
+    ballWidth -= 12;
 }, 4500);
 
 // setInterval(() => {
@@ -43,10 +43,12 @@ function startBall() {
 //Draw EVERYTHING
 function draw() {
 
-    // if (ballWidth <= 0) {
-    //     // play a sound when the game ends...
-    //     clearInterval(ballInterval);
-    // }
+    if (ballWidth <= 0) {
+        // play a sound when the game ends...
+        gameOverElem.innerHTML = "Game Over!!! Try again"
+        pump.play()
+        clearInterval(ballInterval);
+    }
 
     //Color The Canvas Grey
     ctx.fillStyle = "grey";
