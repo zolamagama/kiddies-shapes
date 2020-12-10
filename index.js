@@ -42,6 +42,12 @@ app.use(flash());
 
 const kiddies = kiddiesShapes(pool)
 
+
+app.get('/', async function (req, res) {
+
+    res.render('index')
+});
+
 app.post('/', async function (req, res) {
     const player = _.capitalize(req.body.player)
 
@@ -116,7 +122,7 @@ app.post('/api/show', async function () {
                 message: err
             })
         }
-        
+
     }
 
     return res.json({
@@ -127,10 +133,6 @@ app.post('/api/show', async function () {
 });
 
 
-app.get('/', async function (req, res) {
-
-    res.render('index')
-});
 
 const PORT = process.env.PORT || 6767;
 
