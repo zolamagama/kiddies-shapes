@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="./css/kiddies.css">
+    <link rel="training" href="training.html">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <Canvas id="test" width="300px" height="450px"></canvas>
+        <header>
+            <div class="header">
+                <h1>kiddies shapes</h1>
+                <br>
+                <img src="./images/circle.jpg" alt="no circle" style="width: 80px; height: 80px;">
+                <img src="./images/triangle.jpg" alt="no triangle" style="width: 80px; height: 80px;">
+                <img src="./images/heart.jpg" alt="no heart" style="width: 80px; height: 80px;">
+            </div>
+        </header>
+
+        <main>
+            <div class="row">
+                <div class="col-4">
+                    <span>
+                        <div class="controls">
+                            <button type="button primary" class="start" onclick="init()">Start</button>
+                        </div>
+                        <div id="webcam-container"></div>
+                        <div id="label-container"></div>
+                    </span>
+                </div>
+
+                <div class="col-4">
+                    <span>
+                        <div class="circular-sb">
+                            Hello
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                        </div>
+                        <img src="./images/kido.jpg" alt="no picture"
+                            style="height: 8%; margin: 20px; padding-left: 100px; float: right;">
+                    </span>
+                </div>
+
+                <div class="col-4">
+                    <span>
+                        <Script>
+                            //Some Variables
+                            var canvas;
+                            var ctx;
+                            var ballX = 100;
+                            var ballY = 100;
+                            var xVelocity = 5;
+                            var yVelocity = 5;
+                            var color = "#ccff99";
+                            var ballWidth = 50;
+
+                            //Gets Canvas + Sets Framerate
+                            window.onload = function () {
+                                canvas = document.getElementById("test");
+                                ctx = canvas.getContext("2d");
+                                setInterval(draw, 1000 / 60);
+                            }
+
+                            //Draw EVERYTHING
+                            function draw() {
+
+                                //Color The Canvas Grey
+                                ctx.fillStyle = "grey";
+                                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                                //Draw The Ball
+                                ctx.beginPath();
+                                ctx.fillStyle = color;
+                                ctx.strokeStyle = "black";
+                                ctx.lineWidth = 2;
+                                ctx.arc(ballX, ballY, ballWidth, 0, Math.PI * 2, true);
+                                ctx.fill();
+                                ctx.stroke();
+                                ctx.closePath();
+
+                                //Change Ball Position
+                                ballX += xVelocity;
+                                ballY += yVelocity;
+
+                                //Bounce Ball Off Left + Choose Color
+                                if (ballX - ballWidth <= 0) {
+                                    xVelocity = -xVelocity;
+                                    changeColor();
+                                }
+
+                                //Bounce Ball Off Right + Choose Color
+                                if (ballX + ballWidth >= canvas.width) {
+                                    xVelocity = -xVelocity;
+                                    changeColor();
+                                }
+
+                                //Bounce Ball Off Top + Choose Color
+                                if (ballY - ballWidth <= 0) {
+                                    yVelocity = -yVelocity;
+                                    changeColor();
+                                }
+
+                                //Bounce Ball Off Bottom + Choose Color
+                                if (ballY + ballWidth >= canvas.height) {
+                                    yVelocity = -yVelocity;
+                                    changeColor();
+                                }
+
+                                //Randomly Choose Ball Color
+                                function changeColor() {
+
+                                    var x = Math.random() * 10;
+                                    var n = Math.ceil(x);
+                                    var nu = n;
+
+                                    if (nu == 1) {
+                                        color = "#ffaacc";
+                                    }
+
+                                    if (nu == 2) {
+                                        color = "orange";
+                                    }
+
+                                    if (nu == 3) {
+                                        color = "teal";
+                                    }
+
+                                    if (nu == 4) {
+                                        color = "turquoise";
+                                    }
+
+                                    if (nu == 5) {
+                                        color = "purple";
+                                    }
+
+                                    if (nu == 6) {
+                                        color = "lightgreen";
+                                    }
+
+                                    if (nu == 7) {
+                                        color = "skyblue";
+                                    }
+
+                                    if (nu == 8) {
+                                        color = "darkgrey";
+                                    }
+
+                                    if (nu == 9) {
+                                        color = "crimson";
+                                    }
+
+                                    if (nu == 10) {
+                                        color = "pink";
+                                    }
+                                }
+                            }
+                        </script>
+                    </span>
+                </div>
+            </div>
+        </main>
+
+        <Style>
+            #test {
+                display: block;
+                Border: 3px solid pink;
+                /* margin: auto; */
+                Border-radius: 80px;
+                float: right;
+                margin-top: 100px;
+            }
+
+            body {
+                background-image: url('./images/kids.jpg');
+
+            }
+        </Style>
+
+    </div>
+</body>
+<script src="hand-signs.js"></script>
+
+</html>
