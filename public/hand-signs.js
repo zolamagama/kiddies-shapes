@@ -14,6 +14,8 @@ const questionElem = document.querySelector(".question");
 
 const gameOverElem = document.querySelector(".gameover")
 
+const startGameElem = document.querySelector(".startGame");
+
 
 const debugElem = document.querySelector(".debugMessage");
 const restartButton = document.querySelector(".restart");
@@ -30,7 +32,7 @@ const startBtn = document.querySelector(".start");
 
 startBtn.addEventListener('click', function(){
     lookingForTheFirst = -1
-    showShapeQuestion()
+    startShowingShapes()
 
 })
 
@@ -81,18 +83,18 @@ async function loop() {
 }
 
 
-function shapeGame() {
+// function shapeGame() {
 
-    const showMeTheseShapes = ["Circle", "Heart", "Triangle"]
-    let lookingForTheFirst = 0;
+//     const showMeTheseShapes = ["Circle", "Heart", "Triangle"]
+//     let lookingForTheFirst = 0;
 
-    function getQuestion() {
-        return "Please show me a " + showMeTheseShapes[lookingForTheFirst];
-    }
+//     function getQuestion() {
+//         return "Please show me a " + showMeTheseShapes[lookingForTheFirst];
+//     }
 
 
 
-}
+// }
 
 const showMeTheseShapes = ["Circle", "Heart", "Triangle"];
 const pump = new Audio('audio/Game over.mp3')
@@ -126,7 +128,7 @@ function startShowingShapes() {
 
 
 let lookingForTheFirst = 0
-questionElem.innerHTML = "Please show me a " + showMeTheseShapes[lookingForTheFirst];
+startGameElem.innerHTML = "Press start and show the start sign to start the game " 
 
 function currentlyLookingFor() {
     if (lookingForTheFirst < showMeTheseShapes.length) {
@@ -136,16 +138,16 @@ function currentlyLookingFor() {
 }
 
 
-function showShapeQuestion() {
+// function showShapeQuestion() {
 
-    lookingForTheFirst++;
-    if (lookingForTheFirst < showMeTheseShapes.length) {
-        // questionElem.innerHTML = "Please show me a " + currentlyLookingFor();
-    } else {
-        // questionElem.innerHTML = "You know your shapes!";
+//     lookingForTheFirst++;
+//     if (lookingForTheFirst < showMeTheseShapes.length) {
+//         // questionElem.innerHTML = "Please show me a " + currentlyLookingFor();
+//     } else {
+//         // questionElem.innerHTML = "You know your shapes!";
 
-    }
-}
+//     }
+// }
 
 // run the webcam image through the image model
 async function predict() {
