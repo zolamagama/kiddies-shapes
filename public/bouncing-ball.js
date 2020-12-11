@@ -10,7 +10,7 @@ var ballActive = false;
 
 setInterval(() => {
     ballWidth -= 12;
-}, 4500);
+}, 2000);
 
 // setInterval(() => {
 //     ballWidth += 7;
@@ -45,7 +45,8 @@ function draw() {
 
     if (ballWidth <= 0) {
         // play a sound when the game ends...
-        gameOverElem.innerHTML = "Game Over!!! Try again"
+        gameOverElem.innerHTML = "Game Over!!! Try again";
+        questionElem.innerHTML = ""
         pump.play()
         clearInterval(ballInterval);
     }

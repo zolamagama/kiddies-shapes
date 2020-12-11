@@ -32,7 +32,9 @@ const startBtn = document.querySelector(".start");
 
 startBtn.addEventListener('click', function(){
     lookingForTheFirst = -1
+    startGameElem.innerHTML = "" 
     startShowingShapes()
+
 
 })
 
@@ -69,6 +71,16 @@ async function init() {
     window.requestAnimationFrame(loop);
 
     // append elements to the DOM
+    
+    
+
+    const predictions = prediction.map(pred => {
+        return {
+            className: pred.className,
+            probability : Number(pred.probability.toFixed(2))
+        }
+    });
+
     document.getElementById("webcam-container").appendChild(webcam.canvas);
     labelContainer = document.getElementById("label-container");
     for (let i = 0; i < maxPredictions; i++) { // and class labels
@@ -99,6 +111,7 @@ async function loop() {
 const showMeTheseShapes = ["Circle", "Heart", "Triangle"];
 const pump = new Audio('audio/Game over.mp3')
 const gameOver = new Audio('audio/Funxa.mp3');
+const winning = new Audio('audio/Tada.mp3')
 // const error = new Audio('audio/error.mp3');
 let currentShape = ""
 
@@ -128,6 +141,10 @@ function startShowingShapes() {
 
 
 let lookingForTheFirst = 0
+
+// setTimeout(function(){
+    
+// }, 2000)
 startGameElem.innerHTML = "Press start and show the start sign to start the game " 
 
 function currentlyLookingFor() {
@@ -181,7 +198,7 @@ async function predict() {
 
     }
 
-    labelContainer.innerHTML = shapeName + " " + highestOutcome;
+    // labelContainer.innerHTML = shapeName + " " + highestOutcome;
 
     if (highestOutcome > 0.95) {
 
@@ -190,10 +207,10 @@ async function predict() {
             startShowingShapes();
         } else {
             if (shapeName === currentShape){
-                gameOver.play()
+                winning.play()
                 // play a sound if the shape grows
                 if (ballWidth <= 100) {
-                    ballWidth += 5;
+                    ballWidth += 3;
                 }
 
                 // if (sound > 100) {
